@@ -115,7 +115,7 @@ nav ul li a:focus, nav ul li a:hover {
 }
 
 a:focus, button:focus, input:focus, textarea:focus {
-    outline: 3px solid #e94560;
+    outline: 3px solid #894560;
 }
 
 /* 7. Responsive Design Basics */
@@ -133,7 +133,7 @@ a:focus, button:focus, input:focus, textarea:focus {
 /* 8. Additional Enhancements */
 blockquote {
     font-style: italic;
-    border-left: 5px solid #e94560;
+    border-left: 5px solid #494560;
     padding-left: 20px;
     margin: 30px 0;
     background-color: #fffbe6;
@@ -164,7 +164,7 @@ input[type="submit"] {
     width: 160px;
     align-self: center;
     padding: 12px;
-    background-color: #e94560;
+    background-color: #e947e960;
     border: none;
     border-radius: 10px;
     color: white;
