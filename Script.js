@@ -1,7 +1,24 @@
-// script.js for Personal Website
+// Updated script.js for Personal Website - includes HW4 enhancements
 
-// 1. Home Page: Change background color
 document.addEventListener('DOMContentLoaded', function() {
+
+    /** Home Page - Dynamic Greeting */
+    const greetingDiv = document.getElementById('greeting');
+    if (greetingDiv) {
+        const now = new Date();
+        const hour = now.getHours();
+        let greeting;
+        if (hour < 12) {
+            greeting = "Good morning!";
+        } else if (hour < 18) {
+            greeting = "Good afternoon!";
+        } else {
+            greeting = "Good evening!";
+        }
+        greetingDiv.textContent = greeting;
+    }
+
+    /** Home Page - Change background color */
     const changeBgButton = document.getElementById('changeBg');
     if (changeBgButton) {
         changeBgButton.addEventListener('click', function() {
@@ -9,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 2. Blog Page: Show message instead of alert on "Read More"
+    /** Blog Page - Read More enhancement */
     const readMoreLinks = document.querySelectorAll('.read-more');
     readMoreLinks.forEach(link => {
         link.addEventListener('click', function(event) {
@@ -19,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 3. Projects Page: Animate project articles
+    /** Projects Page - Animate projects */
     const animateButton = document.getElementById('animateProjects');
     const projectArticles = document.querySelectorAll('main article');
     if (animateButton) {
@@ -33,31 +50,80 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 4. Contact Page: Form validation
+    /** Projects Page - Show More Projects */
+    const showMoreProjectsBtn = document.getElementById('showMoreProjects');
+    if (showMoreProjectsBtn) {
+        showMoreProjectsBtn.addEventListener('click', function() {
+            const newProject = document.createElement('article');
+            newProject.innerHTML = `
+                <h2>New AI Project</h2>
+                <time>2025</time>
+                <p>An innovative AI-based solution for smart city management.</p>
+            `;
+            document.querySelector('main').appendChild(newProject);
+        });
+    }
+
+    /** Contact Page - Form Validation */
     const contactForm = document.querySelector('form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(event) {
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
+            let isValid = true;
 
-            if (!name || !email || !message) {
-                alert('Please fill out all fields before submitting!');
+            // Name validation
+            const nameField = document.getElementById('name');
+            const nameError = document.getElementById('nameError');
+            if (!nameField.value.trim()) {
+                nameError.textContent = 'Name is required.';
+                isValid = false;
+            } else {
+                nameError.textContent = '';
+            }
+
+            // Email validation
+            const emailField = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailField.value.trim()) {
+                emailError.textContent = 'Email is required.';
+                isValid = false;
+            } else if (!emailRegex.test(emailField.value.trim())) {
+                emailError.textContent = 'Invalid email format.';
+                isValid = false;
+            } else {
+                emailError.textContent = '';
+            }
+
+            // Message validation
+            const messageField = document.getElementById('message');
+            const messageError = document.getElementById('messageError');
+            if (!messageField.value.trim()) {
+                messageError.textContent = 'Message is required.';
+                isValid = false;
+            } else if (messageField.value.trim().length < 10) {
+                messageError.textContent = 'Message must be at least 10 characters.';
+                isValid = false;
+            } else {
+                messageError.textContent = '';
+            }
+
+            if (!isValid) {
                 event.preventDefault();
             }
         });
     }
 
-    // 5. CV Page: Toggle sections
-    const toggleButtons = document.querySelectorAll('.toggle-section');
-    toggleButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const section = this.nextElementSibling;
-            if (section.style.display === 'none') {
-                section.style.display = 'block';
+    /** CV Page - Toggle Skills section */
+    const toggleSkillsBtn = document.getElementById('toggleSkills');
+    const skillsSection = document.getElementById('skillsSection');
+    if (toggleSkillsBtn && skillsSection) {
+        toggleSkillsBtn.addEventListener('click', function() {
+            if (skillsSection.style.display === 'none') {
+                skillsSection.style.display = 'block';
             } else {
-                section.style.display = 'none';
+                skillsSection.style.display = 'none';
             }
         });
-    });
+    }
+
 });
